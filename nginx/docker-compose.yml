@@ -1,0 +1,26 @@
+version: '3.6'
+services:
+  nginx:
+    container_name: nginx-certbot
+    image: nginx-certbot:latest
+    build:
+      context: .
+      args:
+        - CERTBOT_EMAIL=jose.as.pereira@gmail.com
+        - DOMAIN_LIST=playground-io.ddns.net
+      network: host
+    restart: unless-stopped
+    volumes:
+      - ./proxy:/etc/nginx
+      - letsencrypt:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+  
+volumes:
+  letsencrypt: {}
+
+networks:
+  default:
+    external: true
+    name: frontend
