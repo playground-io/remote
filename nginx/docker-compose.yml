@@ -12,6 +12,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./proxy:/etc/nginx
+      - ./www:/var/www
       - letsencrypt:/etc/letsencrypt
     ports:
       - "80:80"
